@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пойдём гулять )</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden; 
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            position: relative; /* Важно для позиционирования кнопки "Нет" */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            position: absolute;
+            transition: transform 0.2s ease-out;
+        }
+
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+            position: static;
+        }
+
+        .no {
+            background-color: #f44336;
+            color: white;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Привет, я пишу на js, и ты первая девушка, которой в этом признался! 😉</p>
+        <h1>Хочешь прогуляться?</h1>
+        <form id="walk-form">
+            <button type="button" class="yes" onclick="submitForm('да')">Да</button>
+            <button type="button" class="no" id="no-button" onclick="submitForm('нет')">Нет</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const noButton = document.getElementById('no-button');
+        const form = document.getElementById('walk-form');
+        const container = document.querySelector('.container'); 
+        
+        noButton.addEventListener('mousemove', (event) => {
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+            const formWidth = form.offsetWidth;
+            const formHeight = form.offsetHeight;
+
+            let newX = Math.random() * (formWidth - buttonWidth);
+            let newY = Math.random() * (formHeight - buttonHeight);
+
+            newX = Math.max(0, Math.min(newX, formWidth - buttonWidth));
+            newY = Math.max(0, Math.min(newY, formHeight - buttonHeight));
+
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+        });
+
+        function submitForm(answer) {
+            if(answer==="да") {
+                document.getElementById('result').innerHTML = 'Умничка, это правильный выбор! ❤️ \n Вот мой <a href="https://t.me/mistereugene10" target="_blank">тг</a>, напиши мне 🙃';
+            } else {
+                document.getElementById('result').innerHTML = 'Ну ты хатцкер! ❤️ \n Напиши мне как у тебя получилось обойти защиту от глупых решенией <a href="https://t.me/mistereugene10" target="_blank">тг</a> ☺️';
+            }
+            
+        }
+    </script>
+</body>
+</html>
