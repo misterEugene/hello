@@ -11,64 +11,79 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f4f4f4;
-            overflow: hidden; 
+            background-color: #f0f0f0;
         }
 
         .container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        h1 {
-            color: #333;
-        }
-
-        form {
+        .walk-form {
+            position: relative; /* Required for positioning the button */
             margin-top: 20px;
-            position: relative; /* Важно для позиционирования кнопки "Нет" */
+            width: 80%; /* Use percentage for responsiveness */
+            max-width: 300px; /* Set a max width */
+            height: 150px; /* Adjusted height for larger screens and button size */
         }
 
         button {
-            padding: 10px 20px;
+            padding: 15px 30px; /* Increased padding for touch targets */
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            margin: 0 10px;
-            position: absolute;
-            transition: transform 0.2s ease-out;
+            font-size: 18px; /* Increased font size */
+            position: absolute; /* Important for positioning relative to the form */
         }
 
         .yes {
             background-color: #4CAF50;
             color: white;
-            position: static;
+            position: static; /* Override absolute positioning */
+            margin-bottom: 10px; /* Add some space below the "Yes" button */
         }
 
         .no {
             background-color: #f44336;
             color: white;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
         }
 
         .result {
             margin-top: 20px;
-            font-weight: bold;
+            font-size: 18px;
         }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media query for smaller screens (phones) */
+        @media (max-width: 600px) {
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            .walk-form {
+                height: 100px; /* Reduce form height on small screens */
+            }
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <p>Привет, я пишу на js, и ты первая девушка, которой в этом признался! 😉</p>
-        <p>P.S. Чтобы было прикольно тестируй на пк)</p>
+
         <h1>Хочешь прогуляться?</h1>
-        <form id="walk-form">
+        <form id="walk-form" class="walk-form">
             <button type="button" class="yes" onclick="submitForm('да')">Да</button>
             <button type="button" class="no" id="no-button">Нет</button>
         </form>
@@ -78,9 +93,8 @@
     <script>
         const noButton = document.getElementById('no-button');
         const form = document.getElementById('walk-form');
-        const container = document.querySelector('.container'); 
-        
-        noButton.addEventListener('mousemove', (event) => {
+
+        function moveNoButton() {
             const buttonWidth = noButton.offsetWidth;
             const buttonHeight = noButton.offsetHeight;
             const formWidth = form.offsetWidth;
@@ -94,23 +108,11 @@
 
             noButton.style.left = newX + 'px';
             noButton.style.top = newY + 'px';
-        });
+        }
 
-        noButton.addEventListener('click', (event) => {
-            const buttonWidth = noButton.offsetWidth;
-            const buttonHeight = noButton.offsetHeight;
-            const formWidth = form.offsetWidth;
-            const formHeight = form.offsetHeight;
-
-            let newX = Math.random() * (formWidth - buttonWidth);
-            let newY = Math.random() * (formHeight - buttonHeight);
-
-            newX = Math.max(0, Math.min(newX, formWidth - buttonWidth));
-            newY = Math.max(0, Math.min(newY, formHeight - buttonHeight));
-
-            noButton.style.left = newX + 'px';
-            noButton.style.top = newY + 'px';
-        });
+        noButton.addEventListener('touchstart', moveNoButton); // Use touchstart
+        noButton.addEventListener('mousemove', moveNoButton);
+        noButton.addEventListener('click', moveNoButton);
 
         function submitForm(answer) {
             if(answer==="да") {
@@ -118,7 +120,7 @@
             } else {
                 document.getElementById('result').innerHTML = 'Ну ты хатцкер! ❤️ \n Напиши мне как у тебя получилось обойти защиту от глупых решенией <a href="https://t.me/mistereugene10" target="_blank">тг</a> ☺️';
             }
-            
+
         }
     </script>
 </body>
