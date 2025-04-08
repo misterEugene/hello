@@ -95,6 +95,22 @@
             noButton.style.top = newY + 'px';
         });
 
+        noButton.addEventListener('click', (event) => {
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+            const formWidth = form.offsetWidth;
+            const formHeight = form.offsetHeight;
+
+            let newX = Math.random() * (formWidth - buttonWidth);
+            let newY = Math.random() * (formHeight - buttonHeight);
+
+            newX = Math.max(0, Math.min(newX, formWidth - buttonWidth));
+            newY = Math.max(0, Math.min(newY, formHeight - buttonHeight));
+
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+        });
+
         function submitForm(answer) {
             if(answer==="да") {
                 document.getElementById('result').innerHTML = 'Умничка, это правильный выбор! ❤️ \n Вот мой <a href="https://t.me/mistereugene10" target="_blank">тг</a>, напиши мне 🙃';
